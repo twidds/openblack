@@ -91,9 +91,9 @@ target_include_directories(
          ${BULLET_INCLUDE_DIR} ${Stb_INCLUDE_DIR} ${DRLIBS_INCLUDE_DIRS}
 )
 if (NOT VCPKG_TARGET_ANDROID)
-  target_include_directories(
-    openblack_lib PUBLIC ${BULLET_ROOT_DIR}/${BULLET_INCLUDE_DIR}
-  )
+  # target_include_directories(
+  #   openblack_lib PUBLIC ${BULLET_ROOT_DIR}/${BULLET_INCLUDE_DIR} -> ${BULLET_ROOT_DIR} is not a relative path
+  # )
 endif ()
 target_link_directories(
   openblack_lib PRIVATE ${BULLET_ROOT_DIR}/${BULLET_LIBRARY_DIRS}
@@ -178,6 +178,16 @@ target_compile_definitions(
     "SDL_MAIN_HANDLED"
   PUBLIC "$<$<CONFIG:DEBUG>:OPENBLACK_DEBUG>"
 )
+
+if(MINGW)
+  target_compile_definitions(
+    openblack_lib
+    PRIVATE
+      # Get rid of useless crud from windows.h
+      NOMINMAX
+      WIN32_LEAN_AND_MEAN
+  )
+endif()
 
 if (MSVC)
   target_compile_definitions(
