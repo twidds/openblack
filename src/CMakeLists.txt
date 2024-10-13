@@ -161,7 +161,8 @@ if (VCPKG_TARGET_ANDROID)
 else ()
   target_link_libraries(
     openblack_lib
-    PUBLIC $<TARGET_NAME_IF_EXISTS:SDL2::SDL2main>
+    PUBLIC 
+          #  $<TARGET_NAME_IF_EXISTS:SDL2::SDL2main> -> Causes linker errors in MinGW
            $<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
   )
 endif ()
