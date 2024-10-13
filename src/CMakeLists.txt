@@ -90,11 +90,6 @@ target_include_directories(
          ${CMAKE_BINARY_DIR}/include # For shaders and other bin2c
          ${BULLET_INCLUDE_DIR} ${Stb_INCLUDE_DIR} ${DRLIBS_INCLUDE_DIRS}
 )
-if (NOT VCPKG_TARGET_ANDROID)
-  # target_include_directories(
-  #   openblack_lib PUBLIC ${BULLET_ROOT_DIR}/${BULLET_INCLUDE_DIR} -> ${BULLET_ROOT_DIR} is not a relative path
-  # )
-endif ()
 target_link_directories(
   openblack_lib PRIVATE ${BULLET_ROOT_DIR}/${BULLET_LIBRARY_DIRS}
 )
@@ -162,7 +157,6 @@ else ()
   target_link_libraries(
     openblack_lib
     PUBLIC 
-          #  $<TARGET_NAME_IF_EXISTS:SDL2::SDL2main> -> Causes linker errors in MinGW
            $<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
   )
 endif ()

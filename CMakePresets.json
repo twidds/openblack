@@ -15,9 +15,7 @@
           "type": "FILEPATH",
           "value": "${sourceDir}/vcpkg/scripts/buildsystems/vcpkg.cmake"
         },
-        "OPENBLACK_USE_VCPKG": true,
-        "VCPKG_TARGET_TRIPLET": "x64-mingw-static",
-        "VCPKG_HOST_TRIPLET": "x64-mingw-static"
+        "OPENBLACK_USE_VCPKG": true
       },
       "environment": {
           "VCPKG_ROOT": "./vcpkg"
@@ -99,11 +97,15 @@
       }
     },
     {
-      "name": "mingw-system-deps",
-      "displayName": "MinGW (System Deps)",
+      "name": "mingw-makefiles-vcpkg",
+      "displayName": "MinGW MakeFiles (vcpkg)",
       "description": "Configure with Makefiles to use system-installed dependencies",
       "generator": "MinGW Makefiles",
-      "inherits": "template-vcpkg"
+      "inherits": "template-vcpkg",
+      "cacheVariables": {
+        "VCPKG_TARGET_TRIPLET": "x64-mingw-static",
+        "VCPKG_HOST_TRIPLET": "x64-mingw-static"
+      }
     },
     {
       "name": "ninja-multi-vcpkg",
